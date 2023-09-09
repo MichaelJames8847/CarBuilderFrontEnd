@@ -6,7 +6,7 @@ document.addEventListener("change", clickEvent => {
     }
 })
 
-const paints = getPaints()
+const paints = await getPaints();
 
 export const Paints = () => {
     return `<h2>Paints</h2>
@@ -19,5 +19,5 @@ export const Paints = () => {
                 }
             ).join("")
         }
-    </select>`
-}
+    </select>`;
+};

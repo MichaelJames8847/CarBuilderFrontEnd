@@ -6,7 +6,7 @@ document.addEventListener("change", clickEvent => {
     }
 })
 
-const wheels = getWheels()
+const wheels = await getWheels();
 
 export const Wheels = () => {
     return `<h2>Wheels</h2>
@@ -19,5 +19,5 @@ export const Wheels = () => {
                 }
             ).join("")
         }
-    </select>`
-}
+    </select>`;
+};

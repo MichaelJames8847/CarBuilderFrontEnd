@@ -61,33 +61,52 @@ export const setTechnology = (id) => {
     // document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
-export const addCustomOrder = () => {
-    const newOrder = {...database.orderBuilder}
-    newOrder.timestamp = new Date().toLocaleDateString("en-US")
-    newOrder.id = database.customOrders[database.customOrders.length - 1].id + 1
-    database.customOrders.push(newOrder)
+export const addCustomOrder = async () => {
+    const newOrder = {...database.orderBuilder};
+    await fetch(`https://localhost:7179/orders`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newOrder),
+    });
+    database.orderBuilder = {};
+    document.dispatchEvent(new CustomEvent("stateChanged"));
+};
 
-    database.orderBuilder = {}
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
+export const getOrders = async () => {
+    const res = await fetch("https://localhost:7179/orders");
+    const data = await res.json();
+    return data;
+};
 
-export const getOrders = () => {
-    return [...database.customOrders]
-}
+export const getWheels = async () => {
+    const res = await fetch("https://localhost:7179/wheels");
+    const data = await res.json();
+    return data;
+};
 
-export const getWheels = () => {
-    return [...database.wheels]
-}
+export const getInteriors = async () => {
+    const res = await fetch("https://localhost:7179/interiors");
+    const data = await res.json();
+    return data;
+};
 
-export const getInteriors = () => {
-    return [...database.interiors]
-}
+export const getTechnologies = async () => {
+    const res = await fetch("https://localhost:7179/technologies");
+    const data = await res.json();
+    return data;
+};
 
-export const getTechnologies = () => {
-    return [...database.technologies]
-}
+export const getPaints = async () => {
+    const res = await fetch("https://localhost:7179/paints");
+    const data = await res.json();
+    return data;
+};
 
-export const getPaints = () => {
-    return [...database.paints]
-}
-
+export const completeOrder = async (orderId) => {
+    await fetch(`https://localhost:7179/orders/${orderId}/fulfill`, {
+      method: "POST",
+    });
+    document.dispatchEvent(new CustomEvent("stateChanged"));
+  };

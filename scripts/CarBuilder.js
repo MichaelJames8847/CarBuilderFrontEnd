@@ -1,9 +1,10 @@
-import { addCustomOrder } from "./database.js"
+import { addCustomOrder, completeOrder } from "./database.js"
 import { Interiors } from "./Interiors.js"
 import { Orders } from "./Orders.js"
 import { Paints } from "./Paints.js"
 import { Technologies } from "./Technologies.js"
 import { Wheels } from "./Wheels.js"
+
 
 document.addEventListener(
     "click",
@@ -14,7 +15,14 @@ document.addEventListener(
     }
 )
 
-export const CarBuilder = () => {
+document.addEventListener("click", (event) => {
+    const { name, id } = event.target;
+    if (name === "complete") {
+      completeOrder(id);
+    }
+  });
+
+export const CarBuilder = async () => {
     return `
         <h1>Cars 'R Us: Personal Car Builder</h1>
 
@@ -39,7 +47,7 @@ export const CarBuilder = () => {
 
         <article class="customOrders">
             <h2>Custom Car Orders</h2>
-            ${Orders()}
+            ${await Orders()}
         </article>
     `
 }

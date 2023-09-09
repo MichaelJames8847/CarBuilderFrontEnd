@@ -6,7 +6,7 @@ document.addEventListener("change", clickEvent => {
     }
 })
 
-const techs = getTechnologies()
+const techs = await getTechnologies();
 
 export const Technologies = () => {
     return `<h2>Technologies</h2>
@@ -15,9 +15,9 @@ export const Technologies = () => {
         ${
             techs.map(
                 (tech) => {
-                    return `<option value="${tech.id}">${tech.package}</option>`
+                    return `<option value="${tech.id}">${tech.package}</option>`;
                 }
             ).join("")
         }
-    </select>`
-}
+    </select>`;
+};
